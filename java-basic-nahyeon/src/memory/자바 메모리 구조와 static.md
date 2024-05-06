@@ -47,3 +47,106 @@
 
 지역 변수는 스택 영역에, 객체(인스턴스)는 힙 영역에 관리된다. 
 
+## static
+
+### static 변수
+
+특정 클래스에서 공용으로 함께 사용할 수 있는 변수를 만들 수 있다면 편리할 것이다.  
+`static` 키워드를 사용하면 공용으로 함께 사용하는 변수를 만들 수 있다.
+
+```java
+package static1;
+
+public class Data3 {
+    public String name;
+    public static int count; // static 변수 !
+    // 멤버 변수에 static을 붙이게 되면, static 변수, 정적 변수 또는 클래스 변수라 한다.
+    
+    public Data3 (String name) {
+        this.name = name;
+        count++;
+    // 객체가 생성되면 생성자에서 정적 변수 count의 값을 하나 증가시킨다.
+    }
+}
+```
+
+```java
+package static1;
+
+public class DataCountMain3 {
+    public static void main(String[] args) {
+        Data3 data1 = new Data3("A");
+        System.out.println("A count=" + Data3.count);
+
+        Data3 data2 = new Data3("B");
+        System.out.println("B count=" + Data3.count);
+
+        Data3 data3 = new Data3("C");
+        System.out.println("C count=" + Data3.count);
+    }
+}
+```
+
+```text
+A count=1
+B count=2
+C count=3
+```
+
+- `static`이 붙은 멤벼 변수는 **메서드 영역**에서 관리한다.
+  - `count`는 인스턴스 영역에 생성되지 않는다. 대신 메서드 영역에서 이 변수를 관리한다. (따라서 메서드처럼 딱 한번 메모리에 올라감)
+
+### 사용
+
+`static` 이 붙은 정적 변수에 접근하려면 `Data3.count` 와 같이 클래스명 + `.` (dot) + 변수명으로 접근하면 된다.
+
+```
+Data3.count // 클래스명.변수명으로 접근하기
+```
+참고로 `Data3` 의 생성자와 같이 자신의 클래스에 있는 정적 변수라면 클래스명을 생략할 수 있다.  
+`static` 변수를 사용한 덕분에 공용 변수를 사용해서 편리하게 문제를 해결할 수 있었다.
+
+### 정리
+
+#### 멤버 변수(필드)의 종료
+
+- **인스턴스 변수**
+  - `static`이 붙지 않은 멤버 변수
+  - 인스턴스를 생성해야 사용할 수 있음
+  - 인스턴스를 생성할 때마다 새로 만들어짐
+- **클래스 변수**
+  - 클래스 변수, 정적 변수, `static`변수 등 **용어를 모두 사용하니 주의하자**
+  - 인스턴스와 무관하게 클래스에 바로 접근해서 사용 가능
+  - 클래스 자체에 소속됨
+  - 메모리 영역 중 메서드 영역에 존재
+  - 자바 프로그램을 시작할 때 딱 1개가 만들어진다
+
+#### 변수와 생명주기
+
+|       | **지역 변수**            | **인스턴스 (멤버)변수**           | **클래스 변수**             |
+|-------|----------------------|---------------------------|------------------------|
+| 위치    | 스택 영역                | 힙 영역                      | 메서드 영역 안 static 영역     |
+| 생존 주기 | 짧다                   | 지역변수보다 길다                 | 가장 길다                  |
+| 제거 시점 | 메서도 종료 시 스택 프레임에서 제거 | GC가 관리 (인스턴스가 참조되지 않을 경우) | JVM 로딩 시 생성 - JVM 종료 시 |
+
+`static` 이 정적이라는 이유는 바로 여기에 있다. 
+
+`static` 인 정적 변수는 거의 프로그램 실행 시점에 딱 만들어지고, 프로그램 종료 시점에 제거된다.   
+이름 그대로 정적이다.
+
+### 접근법
+
+```java
+//인스턴스를 통한 접근
+Data3 data4 = new Data3("D"); 
+System.out.println(data4.count);
+//클래스를 통합 접근 System.out.println(Data3.count);
+```
+
+- 클래스를 통해 접근하기 (추천)
+  - `Data3.count`
+  - 클래스에서 공용으로 관리하기 때문에 클래스를 통해서 접근하는 것이 더 명확
+- 인스턴스를 통해 접근하기 (비추천)
+  - `data4.count`
+  - 인스턴스 변수와 혼동 위험
+
