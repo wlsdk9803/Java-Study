@@ -48,9 +48,9 @@ public class ElectricCar extends Car {
 
 ### 2️⃣ **상속 호출의 메모리 구조**
 
-![Untitled](%E1%84%89%E1%85%A6%E1%86%A8%E1%84%89%E1%85%A7%E1%86%AB9%20%E1%84%89%E1%85%A1%E1%86%BC%E1%84%89%E1%85%A9%E1%86%A8%202f7fcaf191cf4cb896509fec3ad82c2d/Untitled.png)
+![Untitled](image/Untitled.png)
 
-![Untitled](%E1%84%89%E1%85%A6%E1%86%A8%E1%84%89%E1%85%A7%E1%86%AB9%20%E1%84%89%E1%85%A1%E1%86%BC%E1%84%89%E1%85%A9%E1%86%A8%202f7fcaf191cf4cb896509fec3ad82c2d/Untitled%201.png)
+![Untitled](image/Untitled%201.png)
 
 - 단순히 변수와 메소드만 상속받는 게 아니라 해당 클래스의 정보까지 같이 메모리에 적재되므로, 인스턴스 메모리에 부모와 자식 클래스를 위한 공간이 구분되어 생성됨
 - 인스턴스가 가지는 메소드를 호출할 때, 먼저 본인 클래스에서 찾고, 없으면 부모 관계의 클래스로 올라가서 찾는다.
@@ -59,7 +59,7 @@ public class ElectricCar extends Car {
 
 *** 오버라이드된 메소드 호출의 메모리 구조**
 
-![Untitled](%E1%84%89%E1%85%A6%E1%86%A8%E1%84%89%E1%85%A7%E1%86%AB9%20%E1%84%89%E1%85%A1%E1%86%BC%E1%84%89%E1%85%A9%E1%86%A8%202f7fcaf191cf4cb896509fec3ad82c2d/Untitled%202.png)
+![Untitled](image/Untitled%202.png)
 
 - 본인 클래스에서 먼저 찿는 방식으로 메소드가 호출됨
 - 이미 찾은 메소드는 부모로 올라갈 필요없이 끝
@@ -92,7 +92,7 @@ public class ElectricCar extends Car {
 
 ### 4️⃣ **상속과 접근제어자 활용**
 
-![Untitled](%E1%84%89%E1%85%A6%E1%86%A8%E1%84%89%E1%85%A7%E1%86%AB9%20%E1%84%89%E1%85%A1%E1%86%BC%E1%84%89%E1%85%A9%E1%86%A8%202f7fcaf191cf4cb896509fec3ad82c2d/Untitled%203.png)
+![Untitled](image/Untitled%203.png)
 
 - 하나의 인스턴스가 생성된 것처럼 보이지만, child 메소드에서 상속받은 parent 정보에 접근하려고 하면, parent 입장에서는 외부에서 자신의 정보를 요청하는 것
 - 따라서 접근제어자가 가동된다.
@@ -129,7 +129,7 @@ public class Child extends Parent {
 
 *** parent와 child가 가지는 동일한 이름의 변수**
 
-![Untitled](%E1%84%89%E1%85%A6%E1%86%A8%E1%84%89%E1%85%A7%E1%86%AB9%20%E1%84%89%E1%85%A1%E1%86%BC%E1%84%89%E1%85%A9%E1%86%A8%202f7fcaf191cf4cb896509fec3ad82c2d/Untitled%204.png)
+![Untitled](image/Untitled%204.png)
 
 - 오버라이딩과는 관련없다.
 - super()를 통해 부모가 가진 동일한 이름의 변수에 접근 가능
