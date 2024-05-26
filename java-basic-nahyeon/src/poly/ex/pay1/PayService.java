@@ -16,6 +16,7 @@ public class PayService {
 //            result = pay.pay(amount);
 //        }
 
+        result = pay.pay(amount);
         if (result) {
             System.out.println("결제가 성공했습니다.");
         } else {
