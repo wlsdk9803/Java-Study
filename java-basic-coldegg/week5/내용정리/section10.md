@@ -11,14 +11,14 @@
     
     1. **Parent 타입의 변수가 Parent 인스턴스를 참조할 때**
     
-    ![Untitled](%E1%84%89%E1%85%A6%E1%86%A8%E1%84%89%E1%85%A7%E1%86%AB10%20%E1%84%83%E1%85%A1%E1%84%92%E1%85%A7%E1%86%BC%E1%84%89%E1%85%A5%E1%86%BC1%20b460b4cec7dc45b2adc71cf8c0ae8fc2/Untitled.png)
+    ![Untitled](section10/Untitled.png)
     
     - Parent 인스턴스를 생성했으므로, 메모리에 Parent 클래스 정보들이 생성
     - 생성된 참조값을 그저 Parent 타입의 변수인 parent에 담아두는 것
     
     1. **Parent 타입의 변수가 Child 인스턴스를 참조할 때**
     
-    ![Untitled](%E1%84%89%E1%85%A6%E1%86%A8%E1%84%89%E1%85%A7%E1%86%AB10%20%E1%84%83%E1%85%A1%E1%84%92%E1%85%A7%E1%86%BC%E1%84%89%E1%85%A5%E1%86%BC1%20b460b4cec7dc45b2adc71cf8c0ae8fc2/Untitled%201.png)
+    ![Untitled](section10/Untitled%201.png)
     
     - Child 인스턴스를 생성했으므로, 메모리에 Parent를 상속받은 Child 클래스 정보들이 생성
     - Child child1 = new Child() 와 어떤 게 다른가?
@@ -62,7 +62,7 @@
     
     1. **업캐스팅**
     
-    ![Untitled](%E1%84%89%E1%85%A6%E1%86%A8%E1%84%89%E1%85%A7%E1%86%AB10%20%E1%84%83%E1%85%A1%E1%84%92%E1%85%A7%E1%86%BC%E1%84%89%E1%85%A5%E1%86%BC1%20b460b4cec7dc45b2adc71cf8c0ae8fc2/Untitled%202.png)
+    ![Untitled](section10/Untitled%202.png)
     
     - new C()로 인스턴스를 생성하면, 상속받는 A,B까지 다 생성됨
     - 따라서 타입을 up해도 모두 C를 참조할 수 있음
@@ -70,7 +70,7 @@
     
     1. **다운캐스팅**
     
-    ![Untitled](%E1%84%89%E1%85%A6%E1%86%A8%E1%84%89%E1%85%A7%E1%86%AB10%20%E1%84%83%E1%85%A1%E1%84%92%E1%85%A7%E1%86%BC%E1%84%89%E1%85%A5%E1%86%BC1%20b460b4cec7dc45b2adc71cf8c0ae8fc2/Untitled%203.png)
+    ![Untitled](section10/Untitled%203.png)
     
     - new B()로 인스턴스를 생성하면, 상속받은 A밖에 생성이 안됨
     - 따라서 A타입으로 up해서 B를 참조할 수 있지만,
@@ -82,7 +82,7 @@
     
 - **메서드 오버라이딩**
     
-    ![Untitled](%E1%84%89%E1%85%A6%E1%86%A8%E1%84%89%E1%85%A7%E1%86%AB10%20%E1%84%83%E1%85%A1%E1%84%92%E1%85%A7%E1%86%BC%E1%84%89%E1%85%A5%E1%86%BC1%20b460b4cec7dc45b2adc71cf8c0ae8fc2/Untitled%204.png)
+    ![Untitled](section10/Untitled%204.png)
     
     - `Parent poly = new Child()`
     - parent 타입으로 Child를 참조 ⇒ 다형적 참조
