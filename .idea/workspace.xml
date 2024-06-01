@@ -5,25 +5,22 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="d07cbe61-a61b-432a-b7fb-ed54858f0d34" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/java-basic-coldegg/week2/내용정리/섹션3 객체지향 프로그래밍.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/java-basic-coldegg/week2/내용정리/섹션3 객체지향 프로그래밍/Untitled 1.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/java-basic-coldegg/week2/내용정리/섹션3 객체지향 프로그래밍/Untitled 2.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/java-basic-coldegg/week2/내용정리/섹션3 객체지향 프로그래밍/Untitled 3.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/java-basic-coldegg/week2/내용정리/섹션3 객체지향 프로그래밍/Untitled 4.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/java-basic-coldegg/week2/내용정리/섹션3 객체지향 프로그래밍/Untitled 5.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/java-basic-coldegg/week2/내용정리/섹션3 객체지향 프로그래밍/Untitled 6.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/java-basic-coldegg/week2/내용정리/섹션3 객체지향 프로그래밍/Untitled 7.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/java-basic-coldegg/week2/내용정리/섹션3 객체지향 프로그래밍/Untitled 8.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/java-basic-coldegg/week2/내용정리/섹션3 객체지향 프로그래밍/Untitled.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/java-basic-coldegg/week2/내용정리/섹션4 생성자.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/java-basic-coldegg/week2/내용정리/섹션4 생성자/Untitled (2).png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/java-basic-coldegg/week2/내용정리/섹션4 생성자/Untitled.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/jklf" beforeDir="false" />
+      <change afterPath="$PROJECT_DIR$/java-basic-coldegg/week6/car0/CarMain0.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/java-basic-coldegg/week6/car0/Driver.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/java-basic-coldegg/week6/car0/K3Car.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Class" />
+      </list>
+    </option>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -37,20 +34,44 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;coldegg&quot;,
-    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/User/Documents/공부공부/JAVA 스터디&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Application.CarMain0.executor": "Run",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "git-widget-placeholder": "coldegg",
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "C:/Users/lovea/IdeaProjects/untitled/Java-Study",
+    "project.structure.last.edited": "Project",
+    "project.structure.proportion": "0.0",
+    "project.structure.side.proportion": "0.0"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\Users\User\Documents\공부공부\JAVA 스터디\java-basic-coldegg\src\week2" />
       <recent name="C:\Users\User\Documents\공부공부\JAVA 스터디\java-basic-coldegg\src\week1" />
       <recent name="C:\Users\User\Documents\공부공부\JAVA 스터디\java-basic-coldegg" />
     </key>
+  </component>
+  <component name="RunManager">
+    <configuration name="CarMain0" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="week6.car0.CarMain0" />
+      <module name="Java-Study" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="week6.car0.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Application.CarMain0" />
+      </list>
+    </recent_temporary>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
@@ -62,5 +83,16 @@
       <updated>1714307119928</updated>
     </task>
     <servers />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/java-basic-coldegg/week6/car0/CarMain0.java</url>
+          <line>2</line>
+          <option name="timeStamp" value="1" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
 </project>
