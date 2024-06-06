@@ -96,7 +96,7 @@ public class Child extends Parent { //명시적 상속
 
 ## Object 다형성
 
-<img alt="img.png" src="img/img2.png/img.png" width="300"/>
+<img alt="img.png" src="img/img.png" width="300"/>
 
 `Dog` 와 `Car` 은 서로 아무런 관련이 없는 클래스이다.   
 둘다 부모가 없으므로 `Object` 를 자동으로 상속 받는다.
@@ -148,7 +148,7 @@ private static void action(Object obj) {
 
 매개변수인 `obj` 는 `Object` 타 입이기 때문이다. `Object` 에는 `sound()` 메서드가 없다.
 
-<img alt="img.png" src="img/img3.png/img.png" width="400"/>
+<img alt="img.png" src="img/img3/img3.png" width="400"/>
 
 메서드를 찾기 위해 위로 올라갈 수는 있어도 아래로 내려갈 수는 없다.  
 따라서 `sound()`를 찾지 못하고 컴파일 에러가 발생한다.
@@ -160,7 +160,7 @@ private static void action(Object obj) {
 }
 ```
 
-<img alt="img.png" src="img/img4.png/img.png" width="400"/>
+<img alt="img.png" src="img/img4/img4.png" width="400"/>
 
 `Object obj`의 참조값을 `Dog dog`로 다운캐스팅 하면서 전달할 수 있다.  
 `dog.sound()`를 호출하면 `Dog` 타입에서 `sound`를 찾는다.
@@ -207,10 +207,88 @@ public class ObjectPloyExample2 {
 
 **objects 배열의 모습**
 
-<img alt="img.png" src="img.png" width="400"/>
+<img alt="img.png" src="img/img5/img5.png" width="400"/>
 
 **size() 메서드**  
 `Object`타입만 사용하기 때문에 이후에 배열에 새로운 클래스가 추가되거나 변경되어도 수정할 필요가 없는 메서드이다.
 
 `size()` 메서드는 자바를 사용하는 곳이 라면 어디든지 사용될 수 있다.
+
+
+## toString()
+
+**toString() 메서드의 소스코드**
+```java
+ public String toString() {
+        return getClass().getName() + "@" + Integer.toHexString(hashCode());
+    }
+```
+`getName()` : 클래스명 정보 얻기  
+`Integer.toHexString(hashCode())` : 객체의 참조값(해시코드)를 16진수로 제공 
+  
+
+```java
+//toString() 반환값 출력
+System.out.println(string); //java.lang.Object@2a84aee7
+//클래스에 대한 정보@참조값
+
+//object 직접 출력
+System.out.println(object); ////java.lang.Object@2a84aee7
+```
+
+코드의 결과가 완전히 같다.  
+`System.out.println()` 메서드는 사실 내부에서 `toString()` 을 호출한다.  
+`Object` 타입(자식 포함)이 `println()` 에 인수로 전달되면 내부에서 `obj.toString()` 메서드를 호출해서 결과를 출력한다.
+```java
+ public void println(Object x) {
+     String s = String.valueOf(x);
+     //...
+}
+```
+```java
+ public static String valueOf(Object obj) {
+     return (obj == null) ? "null" : obj.toString();
+}
+```
+따라서 `println()` 을 사용할 때, `toString()` 을 직접 호출할 필요 없이 **객체를 바로 전달하면 객체의 정보를 출력 할 수 있다.**
+
+### toString() 오버라이딩
+
+
+`Object.toString()` 메서드가 클래스 정보와 참조값을 제공하지만 이 정보만으로는 객체의 상태를 적절히 나타내지 못한다.  
+그래서 보통 `toString()` 을 재정의(오버라이딩)해서 보다 유용한 정보를 제공하는 것이 일반적이다.
+
+
+**ObjectPrinter.print(Object obj) 분석 - Car 인스턴스**
+<img alt="img.png" src="./img/img6.png" width="400"/>
+
+```java
+ObjectPrinter.print(car) //main에서 호출
+
+void print(Object obj = car(Car)) { //인수 전달
+    String string = "객체 정보 출력: " + obj.toString();
+}
+```
+1. `Object obj` 의 인수로 `car(Car)` 가 전달 된다.
+2. 메서드 내부에서 `obj.toString()` 을 호출한다.
+3. `obj` 는 `Object` 타입이다. 따라서 `Object` 에 있는 `toString()` 을 찾는다. 
+4. 이때 자식에 재정의(오버라이딩)된 메서드가 있는지 찾아본다. 재정의된 메서드가 없다. `Object.toString()` 을 실행한다.
+
+**ObjectPrinter.print(Object obj) 분석 - Dog 인스턴스**
+
+<img alt="img.png" src="./img/img7.png" width="400"/>
+
+1. `Object obj` 의 인수로 `dog(Dog)` 가 전달된다. 
+2. 메서드 내부에서 `obj.toString()` 을 호출한다. 
+3. `obj` 는 `Object` 타입이다. 따라서 `Object` 에 있는 `toString()` 을 찾는다. 
+4. 이때 자식에 재정의(오버라이딩)된 메서드가 있는지 찾아본다. `Dog` 에 재정의된 메서드가 있다. `Dog.toString()` 을 실행한다.
+
+
+**참고 - 객체의 참조값 직접 출력**  
+`toString()` 이나 `hashCode()` 를 재정의하면 객체의 참조값을 출력할 수 없다.   
+이때는 다음 코드를 사용하면 객체의 참조값을 출력할 수 있다. 
+```java
+String refValue = Integer.toHexString(System.identityHashCode(dog1));
+System.out.println("refValue = " + refValue);
+```
 
