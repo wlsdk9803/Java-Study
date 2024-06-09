@@ -1,0 +1,22 @@
+package lang.immutable.address;
+
+public class ImmutableAddress {
+    private final String value; //final로 설정
+
+    public ImmutableAddress(String value) {
+        this.value = value;
+    }
+
+    public String getValue() {
+        return value;
+    }
+
+    //setter 없애버림
+
+    @Override
+    public String toString() {
+        return "Address{" +
+                "value='" + value + '\'' +
+                '}';
+    }
+}
