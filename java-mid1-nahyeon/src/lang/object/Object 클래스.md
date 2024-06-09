@@ -65,7 +65,7 @@ public class Child extends Parent { //명시적 상속
 - 클래스에 상속 받을 부모 클래스를 명시적으로 지정하면 `Object` 를 상속 받지 않는다.
   - 이미 명시적으로 상속했기 때문에 자바가 `extends Object` 코드를 넣지 않는다.
 
-<img alt="img.png" src="img/img.png" width="300"/>
+<img alt="img.png" src="../img/img.png" width="300"/>
 
 > **묵시적(Implicit) vs 명시적(Explicit)**  
 > - 묵시적: 개발자가 코드에 직접 기술하지 않아도 시스템 또는 컴파일러에 의해 자동으로 수행되는 것을 의미   
@@ -96,7 +96,7 @@ public class Child extends Parent { //명시적 상속
 
 ## Object 다형성
 
-<img alt="img.png" src="img/img.png" width="300"/>
+<img alt="img.png" src="../img/img.png" width="300"/>
 
 `Dog` 와 `Car` 은 서로 아무런 관련이 없는 클래스이다.   
 둘다 부모가 없으므로 `Object` 를 자동으로 상속 받는다.
@@ -148,7 +148,7 @@ private static void action(Object obj) {
 
 매개변수인 `obj` 는 `Object` 타 입이기 때문이다. `Object` 에는 `sound()` 메서드가 없다.
 
-<img alt="img.png" src="img/img3/img3.png" width="400"/>
+<img alt="img.png" src="../img/img3.png" width="400"/>
 
 메서드를 찾기 위해 위로 올라갈 수는 있어도 아래로 내려갈 수는 없다.  
 따라서 `sound()`를 찾지 못하고 컴파일 에러가 발생한다.
@@ -160,7 +160,7 @@ private static void action(Object obj) {
 }
 ```
 
-<img alt="img.png" src="img/img4/img4.png" width="400"/>
+<img alt="img.png" src="../img/img4.png" width="400"/>
 
 `Object obj`의 참조값을 `Dog dog`로 다운캐스팅 하면서 전달할 수 있다.  
 `dog.sound()`를 호출하면 `Dog` 타입에서 `sound`를 찾는다.
@@ -207,7 +207,7 @@ public class ObjectPloyExample2 {
 
 **objects 배열의 모습**
 
-<img alt="img.png" src="img/img5/img5.png" width="400"/>
+<img alt="img.png" src="../img/img5.png" width="400"/>
 
 **size() 메서드**  
 `Object`타입만 사용하기 때문에 이후에 배열에 새로운 클래스가 추가되거나 변경되어도 수정할 필요가 없는 메서드이다.
@@ -260,7 +260,7 @@ System.out.println(object); ////java.lang.Object@2a84aee7
 
 
 **ObjectPrinter.print(Object obj) 분석 - Car 인스턴스**
-<img alt="img.png" src="./img/img6.png" width="400"/>
+<img alt="img.png" src="../img/img6.png" width="400"/>
 
 ```java
 ObjectPrinter.print(car) //main에서 호출
@@ -276,7 +276,7 @@ void print(Object obj = car(Car)) { //인수 전달
 
 **ObjectPrinter.print(Object obj) 분석 - Dog 인스턴스**
 
-<img alt="img.png" src="./img/img7.png" width="400"/>
+<img alt="img.png" src="../img/img7.png" width="400"/>
 
 1. `Object obj` 의 인수로 `dog(Dog)` 가 전달된다. 
 2. 메서드 내부에서 `obj.toString()` 을 호출한다. 
