@@ -292,3 +292,52 @@ String refValue = Integer.toHexString(System.identityHashCode(dog1));
 System.out.println("refValue = " + refValue);
 ```
 
+## Object와 OCP
+
+- 개발자가 구현한 클래스에 의존하는 것 -> 좋지 않음  
+- 추상적인 클래스에 의존하는 것 -> 좋음
+
+
+```java
+ public class ObjectPrinter {
+     public static void print(Object obj) {
+        String string = "객체 정보 출력: " + obj.toString();
+         System.out.println(string);
+     }
+}
+```
+`Car` , `Dog` 같은 구체적인 클래스를 사용하는 것이 아니라, 추상적인 `Object` 클래스를 사용한다.
+
+- `다형적 참조` : `Object` 타입을 매개변수로 사용해서 다형적 참조를 사용중임 (어떤 객체든 인수로 받을 수 있음) 
+- `메서드 오버라이딩` : `Car` , `Dog`같은 구체적인 클래스는 `toString()`메서드를 오버라이딩 할 수 있음
+
+> **추상적**: 여기서 말하는 추상적이라는 뜻은 단순히 추상 클래스나 인터페이스만 뜻하는 것은 아니다.   
+> `Animal` 과 `Dog` , `Cat` 의 관계를 떠올려보자. `Animal` 같은 부모 타입으로 올라갈수록 개념은 더 추상적이게 되고, `Dog` , `Cat` 과 같이 하위 타입으로 내려갈 수록 개념은 더 구체적이게 된다.
+
+### OCP 원칙
+
+- **Open**: 새로운 클래스를 추가하고, `toString()` 을 오버라이딩해서 기능을 확장할 수 있다. 
+- **Closed**: 새로운 클래스를 추가해도 `Object` 와 `toString()` 을 사용하는 클라이언트 코드인
+`ObjectPrinter` 는 변경하지 않아도 된다.
+
+### System.out.println()
+
+`System.out.println()` 메서드도 `Object` 매개변수를 사용하고 내부에서 `toString()` 을 호출한다.  
+-> 따라서 어떤 객체든 print 가능했음 (마치 예시의 `ObjectPrinter` 메서드처럼)
+
+> **자바 언어는 객체지향 언어 답게 언어 스스로도 객체지향의 특징을 매우 잘 활용한다.**
+
+### 참고 - 정적 의존관계 vs 동적 의존관계
+
+- 정적 의존관계 
+  - 컴파일 시간에 결정되며, 주로 클래스 간의 관계를 의미 
+  - 프로그램을 실행하지 않고, 클래스 내에서 사용하는 타입들만 보면 쉽게 의존관계를 파악할 수 있다.
+  - (코드만 보면 알 수 있는..)
+  
+- 동적 의존관계
+  - 런타임에 확인할 수 있는 의존관계
+  - `ObjectPrinter.print(Object obj)` 에 인자로 어떤 객체가 전달 될지는 프로그램을 실행해봐야 알 수 있다. 
+  - 런타임에 어 떤 인스턴스를 사용하는지를 나타내는 것이 동적 의존관계이다.
+    
+참고로 단순히 의존관계 또는 어디에 의존한다고 하면 주로 정적 의존관계를 뜻한다.  
+    예) `ObjectPrinter` 는 `Object` 에 의존한다.
