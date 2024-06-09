@@ -341,3 +341,79 @@ System.out.println("refValue = " + refValue);
     
 참고로 단순히 의존관계 또는 어디에 의존한다고 하면 주로 정적 의존관계를 뜻한다.  
     예) `ObjectPrinter` 는 `Object` 에 의존한다.
+
+## equals()
+
+`Object` 는 동등성 비교를 위한 `equals()` 메서드를 제공한다.
+
+자바는 두 객체가 같다라는 표현을 2가지로 분리해서 제공한다.
+- **동일성(Identity)**: `==` 연산자를 사용해서 두 객체의 참조가 동일한 객체를 가리키고 있는지 확인 
+  - **물리적으로** 같은 메모리에 있는 객체 인스턴스인지 참조값 비교
+- **동등성(Equality)**: `equals()` 메서드를 사용하여 두 객체가 논리적으로 동등한지 확인
+  - **논리적으로** 같은지 비교
+
+```java
+User a = new User("id-100") //참조 x001 
+User b = new User("id-100") //참조 x002
+```
+- 물리적으로 -> 다른 메모리에 있는 다른 객체
+- 논리적으로 -> 주민번호가 같은 User
+
+```java
+ public boolean equals(Object obj) {
+        return (this == obj);
+    }
+```
+`equals()` 메서드는 기본적으로 동일성 비교를 제공, 동등성 비교를 하고 싶다면 클래스에서 오버라이딩 해야 함!  
+-> 논리적으로 같다고 판단하는 기준이 클래스마다 다를 수 있기 때문임
+
+### equals() 구현
+
+```java
+package lang.object.equals;
+
+public class UserV2 {
+    private String id;
+
+    public UserV2(String id) {
+        this.id = id;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        UserV2 user = (UserV2) obj; //obj를 UserV2로 캐스팅 -> 필드 id를 찾기 위해서
+        return id.equals(user.id); //String 비교 시에는 equals 메서드를 사용해야 한다 -> 자바에서 같은 문자열인 경우 최적화를 해준다고 했는데 그것 때문인듯?
+    }
+}
+```
+- `Object` 의 `equals()` 메서드를 재정의했다.
+- `UserV2` 의 동등성은 `id` (고객번호)로 비교한다.
+- `equals()` 는 `Object` 타입을 매개변수로 사용한다. 따라서 객체의 특정 값을 사용하려면 다운캐스팅이 필요
+하다.
+- 여기서는 현재 인스턴스( `this` )에 있는 `id` 문자열과 비교 대상으로 넘어온 객체의 `id` 문자열을 비교한다.
+- `UserV2` 에 있는 `id` 는 `String` 이다. 문자열 비교는 `==` 이 아니라 `equals()` 를 사용해야 한다.
+
+### 정확한 equals() 구현
+
+
+```java
+//변경 - 정확한 equals 구현, IDE 자동 생성 @Override
+public boolean equals(Object o) {
+     if (this == o) return true;
+     if (o == null || getClass() != o.getClass()) return false;
+     User user = (User) o;
+     return Objects.equals(id, user.id);
+}
+```
+
+**equals() 메서드를 구현할 때 지켜야 하는 규칙**
+
+- **반사성(Reflexivity)**: 객체는 자기 자신과 동등해야 한다. ( `x.equals(x)` 는 항상 `true` ). 
+- **대칭성(Symmetry)**: 두 객체가 서로에 대해 동일하다고 판단하면, 이는 양방향으로 동일해야 한다. (`x.equals(y)` 가 `true` 이면 `y.equals(x)` 도 `true` ).
+- **추이성(Transitivity)**: 만약 한 객체가 두 번째 객체와 동일하고, 두 번째 객체가 세 번째 객체와 동일하다면, 첫 번째 객체는 세 번째 객체와도 동일해야 한다.
+- **일관성(Consistency)**: 두 객체의 상태가 변경되지 않는 한, `equals()` 메소드는 항상 동일한 값을 반환해야 한다.
+- **null에 대한 비교**: 모든 객체는 `null` 과 비교했을 때 `false` 를 반환해야 한다.
+
+실무에서는 ide가 만들어준 메서드를 쓴다.
+
+동일성 비교가 필요한 경우에만 `equals()`를 재정의하면 된다.
