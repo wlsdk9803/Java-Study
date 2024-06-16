@@ -27,7 +27,7 @@ public class StringBuilderMain1_2 {
         System.out.println("reverse = " + sb);
 
         // StringBuilder (가변) => String (불변으로 바꾸기 ㄱㄴ)
-        String string = sb.toString();
+        String string2 = sb.toString();
         System.out.println("string = " + string);
     }
 }
