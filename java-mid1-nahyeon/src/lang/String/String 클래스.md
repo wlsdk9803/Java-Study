@@ -182,4 +182,64 @@ public class StringImmutable2 {
 
 > **참고**: `CharSequence` 는 `String`, `StringBuilder` 의 상위 타입이다. 문자열을 처리하는 다양한 객체를 받을 수 있다.
 
+## StringBuilder - 가변 String
+
+`String` -> 불변 객체  
+변경된 값을 기반으로 새로운 `String` 객체를 생성한다.
+
+문자를 더하거나 변경할 때 마다 계속해서 새로운 객체를 생성해야 한다. -> 컴퓨터의 cpu, 메모리 자원을 더 많이 사용하게 됨  
+(실제로는 문자열을 다룰 때는 자바에서 최적화를 한다.)
+
+### StringBuilder
+
+이런 문제를 해결하기 위해 자바는 `StringBuilder` 라는 가변 `String` 을 제공한다.
+
+필드가 `final`로 되어있지 않음
+
+```java
+package lang.String.builder;
+
+public class StringBuilderMain1_1 {
+    public static void main(String[] args) {
+        StringBuilder sb= new StringBuilder();
+        sb.append("A");
+        sb.append("B");
+        sb.append("C");
+        sb.append("D");
+
+        System.out.println("sb = " + sb);
+
+        sb.insert(4, "JAVA");
+        System.out.println("insert = " + sb);
+
+        sb.delete(4, 8);
+        System.out.println("delete  = " + sb);
+
+        sb.reverse();
+        System.out.println("reverse = " + sb);
+
+        // StringBuilder (가변) => String (불변으로 바꾸기 ㄱㄴ)
+        String string = sb.toString();
+        System.out.println("string = " + string);
+    }
+}
+```
+
+1. `StringBuilder` 객체를 생성한다.
+2. `append()` 메서드를 사용해 여러 문자열을 추가한다. 
+3. `insert()` 메서드로 특정 위치에 문자열을 삽입한다. 
+4. `delete` () 메서드로 특정 범위의 문자열을 삭제한다. 
+5. `reverse()` 메서드로 문자열을 뒤집는다.
+6. 마지막으로 `toString` 메소드를 사용해 `StringBuilder` 의 결과를 기반으로 `String` 을 생성해서 반환한다.
+
+> **가변(Mutable) vs 불변(Immutable):**
+> 
+> - `String` 은 불변하다. 즉, 한 번 생성되면 그 내용을 변경할 수 없다. 
+> - 문자열에 변화를 주려고 할 때마다 새로운 `String` 객체가 생성되고, 기존 객체는 버려진다. (참조할 대상이 없을 때 버려짐)
+> - 이 과정에서 메모리와 처리 시간을 더 많이 소모한다. 
+>
+> - `StringBuilder` 는 가변적이다. 하나의 객체 안에서 문자열을 추가, 삭제, 수정할 수 있으며, 이때마다 새로운 객체를 생성하지 않는다. 
+> - 이로 인해 메모리 사용을 줄이고 성능을 향상시킬 수 있다. 단 사이드 이펙트를 주의해야 한다.
+
+`StringBuilder` 는 문자열을 변경하는 동안 사용하다가 문자열 변경이 끝나면 안전한(불변) `String` 으로 변환하는 것이 좋다. (사이드이펙트 방지)
 
