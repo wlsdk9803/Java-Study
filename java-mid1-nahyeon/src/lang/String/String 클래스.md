@@ -350,3 +350,48 @@ public class LoopStringMain {
 `StringBuilder` 는 멀티 쓰레드에 상황에 안전하지 않지만 동기화 오버헤드가 없으므로 속도가 빠르다. `StringBuffer` 와 동기화에 관한 내용은 이후에 멀티 스레드를 학습해야 이해할 수 있다.  
 > 지금은 이런 것이 있구나 정도만 알아두면 된다.
 
+
+## 메서드 체이닝
+
+```java
+package lang.String.chaining;
+
+public class MethodChainingMain3 {
+    public static void main(String[] args) {
+        ValueAdder adder = new ValueAdder();
+        //반환된 참조값을 새로운 변수에 담아서 보관하지 않고, 대신에 바로 메서드 호출에 사용
+        int result = adder.add(1).add(2).add(3).getValue();
+
+        System.out.println("result = " + result);
+    }
+}
+```
+
+`add()` 메서드를 호출하면 `ValueAdder` 인스턴스 자신의 참조값( `x001` )이 반환된다.   
+이 반환된 참조값을 변수에 담아두지 않아도 된다. 대신에 반환된 참조값을 즉시 사용해서 바로 메서드를 호출할 수 있다.
+
+다음과 같은 순서로 실행된다.
+```java
+adder.add(1).add(2).add(3).getValue() //value=0
+x001.add(1).add(2).add(3).getValue() //value=0, x001.add(1)을 호출하면 그 결과로 x001을 반환한다.
+x001.add(2).add(3).getValue() //value=1, x001.add(2)을 호출하면 그 결과로 x001을 반환한다.
+x001.add(3).getValue() //value=3, x001.add(3)을 호출하면 그 결과로 x001을 반환한다.
+x001.getValue() //value=6
+```
+
+> 메서드 체이닝이 가능한 이유는 자기 자신의 참조값을 반환하기 때문이다.   
+이 참조값에 `.` 을 찍어서 바로 자신의 메서드를 호출할 수 있다.  
+**메서드 체이닝 기법은 코드를 간결하고 읽기 쉽게 만들어준다.**
+
+
+### StringBuilder와 메서드 체인(chain)
+
+```java
+StringBuilder sb= new StringBuilder();
+        String string = sb.append("A").append("B").append("C").append("D")
+                        .insert(4, "JAVA")
+                        .delete(4, 8)
+                        .reverse()
+                        .toString();
+```
+
