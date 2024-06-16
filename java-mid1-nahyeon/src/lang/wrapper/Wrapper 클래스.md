@@ -187,3 +187,81 @@ public class AutoboxingMain2 {
 컴파일러가 개발자 대신 `valueOf` , `xxxValue()` 등의 코드를 추가해주는 기능이다.  
 덕분에 기본형과 래퍼형을 서로 편리하게 변환할 수 있다.
 따라서 `AutoboxingMain1`과 `AutoboxingMain2` 는 동일하게 작동한다.
+
+## 주요 메서드와 성능
+
+- `valueOf()` : 래퍼 타입을 반환한다. 숫자, 문자열을 모두 지원한다.
+- `parseInt()` : 문자열을 기본형으로 변환한다.
+- `compareTo()` : 내 값과 인수로 넘어온 값을 비교한다. 내 값이 크면 `1`, 같으면 `0` ,내 값이 작으면 `-1`을 반환한다.
+- `Integer.sum()`, `Integer.min()`, `Integer.max()` : `static` 메서드이다. 간단한 덧셈, 작은 값, 큰 값 연산을 수행한다.
+
+**parseInt() vs valueOf()**  
+원하는 타입에 맞는 메서드를 사용하면 된다.  
+- `valueOf("10")` 는 래퍼 타입을 반환한다.  
+- `parseInt("10")` 는 기본형을 반환한다.  
+  - `Long.parseLong()` 처럼 각 타입에 `parseXxx()` 가 존재한다.
+
+### 래퍼 클래스와 성능
+
+```java
+package lang.wrapper;
+
+public class WrapperVsPrimitive {
+    public static void main(String[] args) {
+        int iterations = 1_000_000_000; //반복 횟수 설정, 10억
+
+        long startTime, endTime;
+
+        //기본형 long 사용
+        long sumPrimitive = 0;
+        startTime = System.currentTimeMillis();
+        for (int i = 0; i < iterations; i++) {
+            sumPrimitive += i;
+        }
+        endTime = System.currentTimeMillis();
+        System.out.println("sumPrimitive = " + sumPrimitive);
+        System.out.println("기본 자료형 long 실행 시간 : " + (endTime - startTime) + "ms");
+
+        //래퍼 클래스 Long 사용
+        Long sumPrimitive2 = 0L;
+        startTime = System.currentTimeMillis();
+        for (int i = 0; i < iterations; i++) {
+            sumPrimitive2 += i; //오토 박싱 발생
+        }
+        endTime = System.currentTimeMillis();
+        System.out.println("sumPrimitive = " + sumPrimitive2);
+        System.out.println("기본 자료형 long 실행 시간 : " + (endTime - startTime) + "ms");
+    }
+}
+```
+
+```text
+sumPrimitive = 499999999500000000
+기본 자료형 long 실행 시간 : 969ms
+sumPrimitive = 499999999500000000
+기본 자료형 long 실행 시간 : 2479ms
+```
+
+- 기본형 연산이 래퍼 클래스보다 대략 5배 정도 빠른 것을 확인할 수 있다.
+- 기본형은 메모리에서 단순히 그 크기만큼의 공간을 차지한다. 
+  - 예를 들어 `int` 는 보통 4바이트의 메모리를 사용한다. 
+- 래퍼 클래스의 인스턴스는 내부에 필드로 가지고 있는 기본형의 값 뿐만 아니라 자바에서 객체 자체를 다루는데 필요한 객체 메타데이터를 포함하므로 더 많은 메모리를 사용한다. 
+  - 자바 버전과 시스템마다 다르지만 대략 8~16 바이트의 메모리를 추가로 사용한다.
+
+> **기본형, 래퍼 클래스 어떤 것을 사용?**  
+> - 일반적인 애플리케이션을 만드는 관점에서 보면 이런 부분을 최적화해도 큰 차이가 없다.
+> - CPU 연산을 아주 많이 수행하는 특수한 경우이거나, 수만 ~ 수십만 이상 연속해서 연산을 수행해야 하는 경우라면 기본형을 사용해서 최적화를 고려하자. 
+> - 그렇지 않은 일반적인 경우라면 코드를 유지보수하기 더 나은 것을 선택하면 된다.
+
+**유지보수 vs 최적화**  
+- 유지보수 vs 최적화 
+  - 유지보수하기 좋은 코드를 먼저 고민해야 한다. 
+
+- 성능 최적화는 대부분 단순함 보다는 복잡함을 요구하고, 더 많은 코드들을 추가로 만들어야 한다. 
+  - 최적화를 위해 유지보수 해야 하는 코드가 더 늘어나는 것이다. 
+
+- 그런데 진짜 문제는 최적화를 한다고 했지만 전체 애플리케이션의 성능 관점에서 보면 불필요한 최적화를 할 가능성이 있다. 
+  - 특히 웹 애플리케이션의 경우 메모리 안에서 발생하는 연산 하나보다 네트워크 호출 한 번이 많게는 수십만배 더 오래 걸린다. 
+  - 자바 메모리 내부에서 발생하는 연산을 수천번에서 한 번으로 줄이는 것 보다, 네트워크 호출 한 번 을 더 줄이는 것이 더 효과적인 경우가 많다.
+
+- 권장하는 방법은 개발 이후에 성능 테스트를 해보고 정말 문제가 되는 부분을 찾아서 최적화 하는 것이다.
