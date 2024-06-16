@@ -243,3 +243,110 @@ public class StringBuilderMain1_1 {
 
 `StringBuilder` 는 문자열을 변경하는 동안 사용하다가 문자열 변경이 끝나면 안전한(불변) `String` 으로 변환하는 것이 좋다. (사이드이펙트 방지)
 
+## String 최적화
+
+### 자바의 String 최적화
+
+자바 컴파일러는 다음과 같이 문자열 리터럴을 더하는 부분을 자동으로 합쳐준다.  
+
+1. **문자열 리터럴 최적화**  
+
+**컴파일 전** 
+```java
+String helloWorld = "Hello, " + "World!"; 
+```
+**컴파일 후** 
+```java
+String helloWorld = "Hello, World!"; 
+```
+따라서 런타임에 별도의 문자열 결합 연산을 수행하지 않기 때문에 성능이 향상된다.
+
+2. **String 변수 최적화**
+
+문자열 변수의 경우 그 안에 어떤 값이 들어있는지 컴파일 시점에는 알 수 없기 때문에 단순하게 합칠 수 없다. 
+```java
+String result = str1 + str2; 
+```
+이런 경우 예를 들면 다음과 같이 최적화를 수행한다. (최적화 방식은 자바 버전에 따라 달라진다.) 
+```java
+String result = new StringBuilder().append(str1).append(str2).toString(); 
+```
+
+> 참고: 자바 9부터는 `StringConcatFactory` 를 사용해서 최적화를 수행한다.
+
+이렇듯 자바가 최적화를 처리해주기 때문에 지금처럼 간단한 경우에는 `StringBuilder` 를 사용하지 않아도 된다.   
+대신에 문자열 더하기 연산( `+` )을 사용하면 충분하다.
+
+(이 경우 어설프게 builder 쓰지 말고 더하기 연산 쓰자..)
+
+### String 최적화가 어려운 경우
+
+```java
+package lang.String.builder;
+
+public class LoopStringMain {
+    public static void main(String[] args) {
+        long startTime = System.currentTimeMillis();
+
+        String result = "";
+        for (int i = 0; i < 100000; i++) {
+            result += "hello java";
+        }
+
+        long endTime = System.currentTimeMillis(); //현재 밀리초
+        System.out.println("result = " + result);
+        System.out.println("time = " + (endTime - startTime) + "ms"); //time = 2637ms 
+        //개오래걸림
+    }
+}
+```
+
+최적화는 대충 이렇게 된다.
+```java
+ String result = "";
+ for (int i = 0; i < 100000; i++) {
+     result = new StringBuilder().append(result).append("Hello Java").toString();
+}
+```
+
+최적화를 해도 반복 횟수만큼 객체를 생성해야 한다.  
+반복문 내에서의 문자열 연결은 **런타임에 연결할 문자열의 개수와 내용이 결정된다.**
+
+이 경우, 컴파일러가 예츨하기 어렵다.
+
+이럴 때는 개발자가 **직접 `StringBuilder`를 사용해야 한다.
+
+```java
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < 100000; i++) {
+            sb.append("hello java");
+        }
+
+        long endTime = System.currentTimeMillis(); //현재 밀리초
+        String r = sb.toString();
+        System.out.println("result = " + r); 
+        System.out.println("time = " + (endTime - startTime) + "ms"); //time = 4ms (stringbuilder 사용시)
+    }
+}
+```
+
+엄청 빠르다.
+
+### 정리
+
+- 문자열을 합칠 때
+  - 대부분 최적화가 되므로 `+` 연산하자
+
+- **`Stringbuilder`를 사용하는 것이 더 좋은 경우**
+  1. 반복문에서 반복해서 문자를 연결할 때
+  2. 조건문을 통해 동적으로 문자열을 조합할 때
+  3. 복잡한 문자열의 특정 부분을 변경해야 할 때
+  4. 매우 긴 대용량 문자열을 다룰 때
+
+> **참고: StringBuilder vs StringBuffer**  
+`StringBuilder` 와 똑같은 기능을 수행하는 `StringBuffer` 클래스도 있다.  
+`StringBuffer` 는 내부에 동기화가 되어 있어서, 멀티 스레드 상황에 안전하지만 동기화 오버헤드로 인해 성능
+이 느리다.  
+`StringBuilder` 는 멀티 쓰레드에 상황에 안전하지 않지만 동기화 오버헤드가 없으므로 속도가 빠르다. `StringBuffer` 와 동기화에 관한 내용은 이후에 멀티 스레드를 학습해야 이해할 수 있다.  
+> 지금은 이런 것이 있구나 정도만 알아두면 된다.
+
