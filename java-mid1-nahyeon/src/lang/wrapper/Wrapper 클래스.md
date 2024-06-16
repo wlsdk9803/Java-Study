@@ -144,3 +144,46 @@ public class MyIntegerNullMain1 {
   - 따라서 int 값이 같아도 `false`를 반환할 수 있다.
 - 래퍼 클래스는 내부의 값을 비교하도록 `equals()` 를 재정의 해두었다. 따라서 값을 비교하려면 `equals()` 를 사용해야 한다.
 
+## 래퍼 클래스 - 오토 박싱
+
+```java
+package lang.wrapper;
+
+public class AutoboxingMain1 {
+    public static void main(String[] args) {
+        //Primitive -> Wrapper
+        int value = 7;
+        Integer boxedValue = Integer.valueOf(value);
+
+        //Wrapper -> Primitive
+        int unboxedValue = boxedValue.intValue();
+
+        System.out.println("boxedValue = " + boxedValue);
+        System.out.println("unboxedValue = " + unboxedValue);
+    }
+}
+```
+
+기본형 <-> 래퍼 클래스  
+변환이 엄청 귀찮다.
+
+```java
+package lang.wrapper;
+
+public class AutoboxingMain2 {
+    public static void main(String[] args) {
+        //Primitive -> Wrapper
+        int value = 7;
+        Integer boxedValue = value; //오토 박싱(Auto - boxing)
+
+        //Wrapper -> Primitive
+        int unboxedValue = boxedValue; //오토 언박생(Auto - unboxing)
+
+        System.out.println("boxedValue = " + boxedValue);
+        System.out.println("unboxedValue = " + unboxedValue);
+    }
+}
+```
+컴파일러가 개발자 대신 `valueOf` , `xxxValue()` 등의 코드를 추가해주는 기능이다.  
+덕분에 기본형과 래퍼형을 서로 편리하게 변환할 수 있다.
+따라서 `AutoboxingMain1`과 `AutoboxingMain2` 는 동일하게 작동한다.
