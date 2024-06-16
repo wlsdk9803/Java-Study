@@ -1,18 +1,15 @@
 package lang.imutable.address;
 
-public class Address {
-    private String value;
+public class ImmutableAddress {
+    // setValue를 없애고, final로 좀 더 의도를 명확히 함
+    private final String value;
 
-    public Address(String value) {
+    public ImmutableAddress(String value) {
         this.value = value;
     }
 
     public String getValue() {
         return value;
-    }
-
-    public void setValue(String value) {
-        this.value = value;
     }
 
     @Override
